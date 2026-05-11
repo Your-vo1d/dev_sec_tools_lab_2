@@ -6,7 +6,6 @@
 
 class NodeBoolTree
 {
-    DECLARE_ALLOCATOR
 public:
     NodeBoolTree(BoolEquation *equation) { this->eq = equation; }
     NodeBoolTree(const NodeBoolTree &node) {

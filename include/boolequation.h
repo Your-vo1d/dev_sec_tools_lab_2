@@ -4,6 +4,8 @@
 #include "boolinterval.h"
 #include "Allocator.h"
 
+class BranchingStrategy;
+
 class BoolEquation
 {
 public:
@@ -21,7 +23,7 @@ public:
     bool Rule4Col0(BBV vector);
     bool Rule5Col1(BBV vector);
     void Simplify(int ixCol, char value);
-    int ChooseColForBranching();
+    int ChooseColForBranching(const BranchingStrategy &strategy);
 
 	    DECLARE_ALLOCATOR
 };

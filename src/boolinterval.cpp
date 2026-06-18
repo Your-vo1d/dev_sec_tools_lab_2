@@ -74,10 +74,10 @@ bool BoolInterval::operator!=(BoolInterval &ibv)
 	return false;
 }
 
-BoolInterval::operator string()
+BoolInterval::operator std::string()
 {
 	size_t sz = vec.getSize();
-	string str(vec.getSize(), '0');
+	std::string str(vec.getSize(), '0');
 
 	for (int ix = 0; ix < sz; ix++) {
 		str[ix] = getValue(ix);

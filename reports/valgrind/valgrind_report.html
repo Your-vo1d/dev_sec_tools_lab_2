@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valgrind Memory Report — SAT_Solver / Sat_ex30_3.pla</title>
+<style>
+  :root {
+    --bg: #f5f6fa;
+    --card: #ffffff;
+    --border: #dde1ea;
+    --text: #2d3436;
+    --muted: #636e72;
+    --accent: #2980b9;
+    --red: #c0392b;
+    --orange: #e67e22;
+    --green: #27ae60;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg);
+          color: var(--text); padding: 2rem; }
+  h1 { font-size: 1.6rem; margin-bottom: .25rem; }
+  .meta { color: var(--muted); font-size: .85rem; margin-bottom: 2rem; }
+  .meta span { margin-right: 1.5rem; }
+
+  /* ── cards ── */
+  .card { background: var(--card); border: 1px solid var(--border);
+           border-radius: 8px; padding: 1.2rem 1.5rem; margin-bottom: 1.5rem; }
+  .card h2 { font-size: 1rem; font-weight: 600; margin-bottom: 1rem;
+              border-bottom: 1px solid var(--border); padding-bottom: .5rem; }
+
+  /* ── stat boxes ── */
+  .stats { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .stat { background: var(--card); border: 1px solid var(--border);
+           border-radius: 8px; padding: 1rem 1.4rem; flex: 1; min-width: 150px; }
+  .stat .val { font-size: 1.8rem; font-weight: 700; }
+  .stat .lbl { font-size: .78rem; color: var(--muted); margin-top: .15rem; }
+  .stat.red   .val { color: var(--red); }
+  .stat.orange .val { color: var(--orange); }
+  .stat.blue  .val { color: var(--accent); }
+
+  /* ── summary table ── */
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  th, td { padding: .55rem .8rem; text-align: left; border-bottom: 1px solid var(--border); }
+  th { background: #f0f2f8; font-weight: 600; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr:last-child td { border-bottom: none; }
+
+  /* ── error list ── */
+  .error-item { border: 1px solid var(--border); border-radius: 6px;
+                 margin-bottom: .6rem; overflow: hidden; }
+  .error-item summary { cursor: pointer; padding: .7rem 1rem;
+                          display: flex; flex-wrap: wrap; align-items: center;
+                          gap: .5rem; background: #fafbfd; list-style: none; }
+  .error-item summary::-webkit-details-marker { display: none; }
+  .error-item[open] summary { background: #eef2fb; border-bottom: 1px solid var(--border); }
+  .summary-text { flex: 1; font-size: .88rem; }
+  .rc { color: var(--muted); font-size: .78rem; flex-basis: 100%; }
+
+  /* ── badges ── */
+  .badge { border-radius: 4px; padding: .15rem .5rem; font-size: .72rem;
+            font-weight: 600; color: #fff; white-space: nowrap; }
+  .badge.bytes { background: #636e72; }
+
+  /* ── stack trace ── */
+  .stack { list-style: none; padding: .8rem 1rem; font-size: .83rem; }
+  .frame { padding: .25rem 0; border-bottom: 1px dashed var(--border); }
+  .frame:last-child { border-bottom: none; }
+  .fn { font-family: 'Consolas', 'Fira Code', monospace; color: var(--text); }
+  .loc { color: var(--accent); font-family: monospace; }
+  .loc.obj { color: var(--muted); }
+
+  /* ── verdict banner ── */
+  .verdict { border-radius: 8px; padding: 1rem 1.4rem; margin-bottom: 1.5rem;
+              border-left: 5px solid; }
+  .verdict.warn { background: #fef9ec; border-color: var(--orange); }
+  .verdict.fail { background: #fdecea; border-color: var(--red); }
+  .verdict h3 { margin-bottom: .3rem; }
+  .verdict p  { font-size: .9rem; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<h1>Valgrind Memory Check Report</h1>
+<div class="meta">
+  <span><strong>Program:</strong> SAT_Solver</span>
+  <span><strong>Input:</strong> Sat_ex30_3.pla</span>
+  <span><strong>Tool:</strong> Memcheck 3.22.0</span>
+  <span><strong>Generated:</strong> 2026-05-18 21:15:44</span>
+  <span><strong>Flags:</strong> --leak-check=full --show-leak-kinds=all --track-origins=yes</span>
+</div>
+
+<div class="verdict fail">
+  <h3>&#9888; Memory leaks detected</h3>
+  <p>The program exited with <strong>85</strong> memory issues totalling
+     <strong>884,986 bytes</strong> across <strong>5,383 blocks</strong>.
+     All leaks originate from heap allocations that are not freed before exit.
+     No invalid reads/writes or uninitialised-value errors were found.</p>
+</div>
+
+<div class="stats">
+  <div class="stat red">
+    <div class="val">85</div>
+    <div class="lbl">Total Issues</div>
+  </div>
+  <div class="stat red">
+    <div class="val">884,986</div>
+    <div class="lbl">Total Leaked Bytes</div>
+  </div>
+  <div class="stat orange">
+    <div class="val">884,066</div>
+    <div class="lbl">Definitely Lost (bytes)</div>
+  </div>
+  <div class="stat blue">
+    <div class="val">920</div>
+    <div class="lbl">Indirectly Lost (bytes)</div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Summary by Category</h2>
+  <table>
+    <thead>
+      <tr><th>Category</th><th>Count</th><th>Bytes Leaked</th><th>Blocks Leaked</th></tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+          <td><span class="badge kind" style="background:#c0392b">Definitely Lost</span></td>
+          <td class="num">69</td>
+          <td class="num">884,066</td>
+          <td class="num">5,337</td>
+        </tr>
+        <tr>
+          <td><span class="badge kind" style="background:#e67e22">Indirectly Lost</span></td>
+          <td class="num">16</td>
+          <td class="num">920</td>
+          <td class="num">46</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h2>Root Cause Analysis</h2>
+  <p style="font-size:.9rem;color:var(--muted);margin-bottom:1rem;">
+    All 85 leaks stem from one structural pattern: <code>BoolEquation</code>
+    stores a raw <code>BoolInterval**</code> array allocated in its constructor but never
+    freed (no destructor). Every DPLL branch creates a copy of <code>BoolEquation</code>
+    via the copy-constructor, which allocates a second <code>cnf[]</code> array — also
+    never freed. The leaked <code>BBV</code> heap-buffers inside each
+    <code>BoolInterval</code> are then <em>indirectly</em> lost through those pointers.
+    The fix is a <code>~BoolEquation()</code> destructor that calls
+    <code>delete[] cnf</code>.
+  </p>
+  <table>
+    <thead>
+      <tr><th>File</th><th>Function</th><th>Issues</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>BBV.cpp</code></td><td><code>BBV::operator char*()</code></td><td class="num">50</td></tr>
+      <tr><td><code>BBV.cpp</code></td><td><code>BBV::operator=(BBV&amp;)</code></td><td class="num">16</td></tr>
+      <tr><td><code>boolequation.cpp</code></td><td><code>BoolEquation::BoolEquation(BoolEquation&amp;)</code></td><td class="num">10</td></tr>
+      <tr><td><code>Allocator.cpp</code></td><td><code>Allocator::Allocate(unsigned long)</code></td><td class="num">8</td></tr>
+      <tr><td><code>boolequation.cpp</code></td><td><code>BoolEquation::BoolEquation(BoolInterval**, BoolInterval*, int, int, BBV)</code></td><td class="num">1</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h2>All Issues (85) — click to expand</h2>
+  
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#e67e22">Indirectly Lost</span>
+        <span class="badge bytes">20 bytes / 1 block(s)</span>
+        <span class="summary-text">20 bytes in 1 blocks are indirectly lost in loss record 1 of 85</span>
+        <span class="rc">↳ BBV::operator=(BBV&amp;) (BBV.cpp:146)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator=(BBV&amp;)</span> — <span class="loc">BBV.cpp:146</span></li><li class="frame"><span class="fn">BoolInterval::BoolInterval(BBV&amp;, BBV&amp;)</span> — <span class="loc">boolinterval.cpp:49</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:34</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#e67e22">Indirectly Lost</span>
+        <span class="badge bytes">20 bytes / 1 block(s)</span>
+        <span class="summary-text">20 bytes in 1 blocks are indirectly lost in loss record 2 of 85</span>
+        <span class="rc">↳ BBV::operator=(BBV&amp;) (BBV.cpp:146)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator=(BBV&amp;)</span> — <span class="loc">BBV.cpp:146</span></li><li class="frame"><span class="fn">BoolInterval::BoolInterval(BBV&amp;, BBV&amp;)</span> — <span class="loc">boolinterval.cpp:50</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:34</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#e67e22">Indirectly Lost</span>
+        <span class="badge bytes">20 bytes / 1 block(s)</span>
+        <span class="summary-text">20 bytes in 1 blocks are indirectly lost in loss record 3 of 85</span>
+        <span class="rc">↳ BBV::operator=(BBV&amp;) (BBV.cpp:146)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator=(BBV&amp;)</span> — <span class="loc">BBV.cpp:146</span></li><li class="frame"><span class="fn">BoolInterval::BoolInterval(BBV&amp;, BBV&amp;)</span> — <span class="loc">boolinterval.cpp:49</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:34</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#e67e22">Indirectly Lost</span>
+        <span class="badge bytes">20 bytes / 1 block(s)</span>
+        <span class="summary-text">20 bytes in 1 blocks are indirectly lost in loss record 4 of 85</span>
+        <span class="rc">↳ BBV::operator=(BBV&amp;) (BBV.cpp:146)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator=(BBV&amp;)</span> — <span class="loc">BBV.cpp:146</span></li><li class="frame"><span class="fn">BoolInterval::BoolInterval(BBV&amp;, BBV&amp;)</span> — <span class="loc">boolinterval.cpp:50</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:34</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#e67e22">Indirectly Lost</span>
+        <span class="badge bytes">20 bytes / 1 block(s)</span>
+        <span class="summary-text">20 bytes in 1 blocks are indirectly lost in loss record 5 of 85</span>
+        <span class="rc">↳ BBV::operator=(BBV&amp;) (BBV.cpp:146)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator=(BBV&amp;)</span> — <span class="loc">BBV.cpp:146</span></li><li class="frame"><span class="fn">BoolInterval::BoolInterval(BBV&amp;, BBV&amp;)</span> — <span class="loc">boolinterval.cpp:49</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:34</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#e67e22">Indirectly Lost</span>
+        <span class="badge bytes">20 bytes / 1 block(s)</span>
+        <span class="summary-text">20 bytes in 1 blocks are indirectly lost in loss record 6 of 85</span>
+        <span class="rc">↳ BBV::operator=(BBV&amp;) (BBV.cpp:146)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator=(BBV&amp;)</span> — <span class="loc">BBV.cpp:146</span></li><li class="frame"><span class="fn">BoolInterval::BoolInterval(BBV&amp;, BBV&amp;)</span> — <span class="loc">boolinterval.cpp:50</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:34</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#e67e22">Indirectly Lost</span>
+        <span class="badge bytes">20 bytes / 1 block(s)</span>
+        <span class="summary-text">20 bytes in 1 blocks are indirectly lost in loss record 7 of 85</span>
+        <span class="rc">↳ BBV::operator=(BBV&amp;) (BBV.cpp:146)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator=(BBV&amp;)</span> — <span class="loc">BBV.cpp:146</span></li><li class="frame"><span class="fn">BoolInterval::BoolInterval(BBV&amp;, BBV&amp;)</span> — <span class="loc">boolinterval.cpp:49</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:34</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#e67e22">Indirectly Lost</span>
+        <span class="badge bytes">20 bytes / 1 block(s)</span>
+        <span class="summary-text">20 bytes in 1 blocks are indirectly lost in loss record 8 of 85</span>
+        <span class="rc">↳ BBV::operator=(BBV&amp;) (BBV.cpp:146)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator=(BBV&amp;)</span> — <span class="loc">BBV.cpp:146</span></li><li class="frame"><span class="fn">BoolInterval::BoolInterval(BBV&amp;, BBV&amp;)</span> — <span class="loc">boolinterval.cpp:50</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:34</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#e67e22">Indirectly Lost</span>
+        <span class="badge bytes">20 bytes / 1 block(s)</span>
+        <span class="summary-text">20 bytes in 1 blocks are indirectly lost in loss record 9 of 85</span>
+        <span class="rc">↳ BBV::operator=(BBV&amp;) (BBV.cpp:146)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator=(BBV&amp;)</span> — <span class="loc">BBV.cpp:146</span></li><li class="frame"><span class="fn">BoolInterval::BoolInterval(BBV&amp;, BBV&amp;)</span> — <span class="loc">boolinterval.cpp:49</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:34</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#e67e22">Indirectly Lost</span>
+        <span class="badge bytes">20 bytes / 1 block(s)</span>
+        <span class="summary-text">20 bytes in 1 blocks are indirectly lost in loss record 10 of 85</span>
+        <span class="rc">↳ BBV::operator=(BBV&amp;) (BBV.cpp:146)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator=(BBV&amp;)</span> — <span class="loc">BBV.cpp:146</span></li><li class="frame"><span class="fn">BoolInterval::BoolInterval(BBV&amp;, BBV&amp;)</span> — <span class="loc">boolinterval.cpp:50</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:34</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#e67e22">Indirectly Lost</span>
+        <span class="badge bytes">20 bytes / 1 block(s)</span>
+        <span class="summary-text">20 bytes in 1 blocks are indirectly lost in loss record 11 of 85</span>
+        <span class="rc">↳ BBV::operator=(BBV&amp;) (BBV.cpp:146)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator=(BBV&amp;)</span> — <span class="loc">BBV.cpp:146</span></li><li class="frame"><span class="fn">BoolInterval::BoolInterval(BBV&amp;, BBV&amp;)</span> — <span class="loc">boolinterval.cpp:49</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:34</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#e67e22">Indirectly Lost</span>
+        <span class="badge bytes">20 bytes / 1 block(s)</span>
+        <span class="summary-text">20 bytes in 1 blocks are indirectly lost in loss record 12 of 85</span>
+        <span class="rc">↳ BBV::operator=(BBV&amp;) (BBV.cpp:146)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator=(BBV&amp;)</span> — <span class="loc">BBV.cpp:146</span></li><li class="frame"><span class="fn">BoolInterval::BoolInterval(BBV&amp;, BBV&amp;)</span> — <span class="loc">boolinterval.cpp:50</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:34</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#e67e22">Indirectly Lost</span>
+        <span class="badge bytes">20 bytes / 1 block(s)</span>
+        <span class="summary-text">20 bytes in 1 blocks are indirectly lost in loss record 13 of 85</span>
+        <span class="rc">↳ BBV::operator=(BBV&amp;) (BBV.cpp:146)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator=(BBV&amp;)</span> — <span class="loc">BBV.cpp:146</span></li><li class="frame"><span class="fn">BoolInterval::BoolInterval(BBV&amp;, BBV&amp;)</span> — <span class="loc">boolinterval.cpp:49</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:34</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#e67e22">Indirectly Lost</span>
+        <span class="badge bytes">20 bytes / 1 block(s)</span>
+        <span class="summary-text">20 bytes in 1 blocks are indirectly lost in loss record 14 of 85</span>
+        <span class="rc">↳ BBV::operator=(BBV&amp;) (BBV.cpp:146)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator=(BBV&amp;)</span> — <span class="loc">BBV.cpp:146</span></li><li class="frame"><span class="fn">BoolInterval::BoolInterval(BBV&amp;, BBV&amp;)</span> — <span class="loc">boolinterval.cpp:50</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:34</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">72 bytes / 1 block(s)</span>
+        <span class="summary-text">72 (32 direct, 40 indirect) bytes in 1 blocks are definitely lost in loss record 15 of 85</span>
+        <span class="rc">↳ Allocator::Allocate(unsigned long) (Allocator.cpp:92)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">Allocator::Allocate(unsigned long)</span> — <span class="loc">Allocator.cpp:92</span></li><li class="frame"><span class="fn">BoolInterval::operator new(unsigned long)</span> — <span class="loc">boolinterval.h:35</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:34</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">72 bytes / 1 block(s)</span>
+        <span class="summary-text">72 (32 direct, 40 indirect) bytes in 1 blocks are definitely lost in loss record 16 of 85</span>
+        <span class="rc">↳ Allocator::Allocate(unsigned long) (Allocator.cpp:92)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">Allocator::Allocate(unsigned long)</span> — <span class="loc">Allocator.cpp:92</span></li><li class="frame"><span class="fn">BoolInterval::operator new(unsigned long)</span> — <span class="loc">boolinterval.h:35</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:34</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">72 bytes / 1 block(s)</span>
+        <span class="summary-text">72 (32 direct, 40 indirect) bytes in 1 blocks are definitely lost in loss record 17 of 85</span>
+        <span class="rc">↳ Allocator::Allocate(unsigned long) (Allocator.cpp:92)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">Allocator::Allocate(unsigned long)</span> — <span class="loc">Allocator.cpp:92</span></li><li class="frame"><span class="fn">BoolInterval::operator new(unsigned long)</span> — <span class="loc">boolinterval.h:35</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:34</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">72 bytes / 1 block(s)</span>
+        <span class="summary-text">72 (32 direct, 40 indirect) bytes in 1 blocks are definitely lost in loss record 18 of 85</span>
+        <span class="rc">↳ Allocator::Allocate(unsigned long) (Allocator.cpp:92)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">Allocator::Allocate(unsigned long)</span> — <span class="loc">Allocator.cpp:92</span></li><li class="frame"><span class="fn">BoolInterval::operator new(unsigned long)</span> — <span class="loc">boolinterval.h:35</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:34</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">72 bytes / 1 block(s)</span>
+        <span class="summary-text">72 (32 direct, 40 indirect) bytes in 1 blocks are definitely lost in loss record 19 of 85</span>
+        <span class="rc">↳ Allocator::Allocate(unsigned long) (Allocator.cpp:92)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">Allocator::Allocate(unsigned long)</span> — <span class="loc">Allocator.cpp:92</span></li><li class="frame"><span class="fn">BoolInterval::operator new(unsigned long)</span> — <span class="loc">boolinterval.h:35</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:34</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">72 bytes / 1 block(s)</span>
+        <span class="summary-text">72 (32 direct, 40 indirect) bytes in 1 blocks are definitely lost in loss record 20 of 85</span>
+        <span class="rc">↳ Allocator::Allocate(unsigned long) (Allocator.cpp:92)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">Allocator::Allocate(unsigned long)</span> — <span class="loc">Allocator.cpp:92</span></li><li class="frame"><span class="fn">BoolInterval::operator new(unsigned long)</span> — <span class="loc">boolinterval.h:35</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:34</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">72 bytes / 1 block(s)</span>
+        <span class="summary-text">72 (32 direct, 40 indirect) bytes in 1 blocks are definitely lost in loss record 21 of 85</span>
+        <span class="rc">↳ Allocator::Allocate(unsigned long) (Allocator.cpp:92)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">Allocator::Allocate(unsigned long)</span> — <span class="loc">Allocator.cpp:92</span></li><li class="frame"><span class="fn">BoolInterval::operator new(unsigned long)</span> — <span class="loc">boolinterval.h:35</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:34</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">161 bytes / 1 block(s)</span>
+        <span class="summary-text">161 bytes in 1 blocks are definitely lost in loss record 22 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolInterval::BoolInterval(unsigned long)</span> — <span class="loc">boolinterval.cpp:10</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:140</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">161 bytes / 1 block(s)</span>
+        <span class="summary-text">161 bytes in 1 blocks are definitely lost in loss record 23 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolInterval::BoolInterval(unsigned long)</span> — <span class="loc">boolinterval.cpp:11</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:140</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">161 bytes / 1 block(s)</span>
+        <span class="summary-text">161 bytes in 1 blocks are definitely lost in loss record 24 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:90</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">161 bytes / 1 block(s)</span>
+        <span class="summary-text">161 bytes in 1 blocks are definitely lost in loss record 25 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:90</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">161 bytes / 1 block(s)</span>
+        <span class="summary-text">161 bytes in 1 blocks are definitely lost in loss record 26 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:90</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">161 bytes / 1 block(s)</span>
+        <span class="summary-text">161 bytes in 1 blocks are definitely lost in loss record 27 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:90</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">161 bytes / 1 block(s)</span>
+        <span class="summary-text">161 bytes in 1 blocks are definitely lost in loss record 28 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:90</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">161 bytes / 1 block(s)</span>
+        <span class="summary-text">161 bytes in 1 blocks are definitely lost in loss record 29 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:90</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">161 bytes / 1 block(s)</span>
+        <span class="summary-text">161 bytes in 1 blocks are definitely lost in loss record 30 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:90</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">161 bytes / 1 block(s)</span>
+        <span class="summary-text">161 bytes in 1 blocks are definitely lost in loss record 31 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:90</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">161 bytes / 1 block(s)</span>
+        <span class="summary-text">161 bytes in 1 blocks are definitely lost in loss record 32 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:57</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#e67e22">Indirectly Lost</span>
+        <span class="badge bytes">320 bytes / 16 block(s)</span>
+        <span class="summary-text">320 bytes in 16 blocks are indirectly lost in loss record 33 of 85</span>
+        <span class="rc">↳ BBV::operator=(BBV&amp;) (BBV.cpp:146)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator=(BBV&amp;)</span> — <span class="loc">BBV.cpp:146</span></li><li class="frame"><span class="fn">BoolInterval::BoolInterval(BBV&amp;, BBV&amp;)</span> — <span class="loc">boolinterval.cpp:49</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:34</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#e67e22">Indirectly Lost</span>
+        <span class="badge bytes">320 bytes / 16 block(s)</span>
+        <span class="summary-text">320 bytes in 16 blocks are indirectly lost in loss record 34 of 85</span>
+        <span class="rc">↳ BBV::operator=(BBV&amp;) (BBV.cpp:146)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator=(BBV&amp;)</span> — <span class="loc">BBV.cpp:146</span></li><li class="frame"><span class="fn">BoolInterval::BoolInterval(BBV&amp;, BBV&amp;)</span> — <span class="loc">boolinterval.cpp:50</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:34</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">1,152 bytes / 16 block(s)</span>
+        <span class="summary-text">1,152 (512 direct, 640 indirect) bytes in 16 blocks are definitely lost in loss record 35 of 85</span>
+        <span class="rc">↳ Allocator::Allocate(unsigned long) (Allocator.cpp:92)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">Allocator::Allocate(unsigned long)</span> — <span class="loc">Allocator.cpp:92</span></li><li class="frame"><span class="fn">BoolInterval::operator new(unsigned long)</span> — <span class="loc">boolinterval.h:35</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:34</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">1,280 bytes / 1 block(s)</span>
+        <span class="summary-text">1,280 bytes in 1 blocks are definitely lost in loss record 36 of 85</span>
+        <span class="rc">↳ BoolEquation::BoolEquation(BoolInterval**, BoolInterval*, int, int, BBV) (boolequation.cpp:13)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolInterval**, BoolInterval*, int, int, BBV)</span> — <span class="loc">boolequation.cpp:13</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:142</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">1,280 bytes / 1 block(s)</span>
+        <span class="summary-text">1,280 bytes in 1 blocks are definitely lost in loss record 37 of 85</span>
+        <span class="rc">↳ BoolEquation::BoolEquation(BoolEquation&amp;) (boolequation.cpp:28)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:28</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">1,280 bytes / 1 block(s)</span>
+        <span class="summary-text">1,280 bytes in 1 blocks are definitely lost in loss record 38 of 85</span>
+        <span class="rc">↳ BoolEquation::BoolEquation(BoolEquation&amp;) (boolequation.cpp:28)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:28</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">1,280 bytes / 1 block(s)</span>
+        <span class="summary-text">1,280 bytes in 1 blocks are definitely lost in loss record 39 of 85</span>
+        <span class="rc">↳ BoolEquation::BoolEquation(BoolEquation&amp;) (boolequation.cpp:28)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:28</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">1,280 bytes / 1 block(s)</span>
+        <span class="summary-text">1,280 bytes in 1 blocks are definitely lost in loss record 40 of 85</span>
+        <span class="rc">↳ BoolEquation::BoolEquation(BoolEquation&amp;) (boolequation.cpp:28)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:28</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">1,280 bytes / 1 block(s)</span>
+        <span class="summary-text">1,280 bytes in 1 blocks are definitely lost in loss record 41 of 85</span>
+        <span class="rc">↳ BoolEquation::BoolEquation(BoolEquation&amp;) (boolequation.cpp:28)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:28</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">1,280 bytes / 1 block(s)</span>
+        <span class="summary-text">1,280 bytes in 1 blocks are definitely lost in loss record 42 of 85</span>
+        <span class="rc">↳ BoolEquation::BoolEquation(BoolEquation&amp;) (boolequation.cpp:28)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:28</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">1,280 bytes / 1 block(s)</span>
+        <span class="summary-text">1,280 bytes in 1 blocks are definitely lost in loss record 43 of 85</span>
+        <span class="rc">↳ BoolEquation::BoolEquation(BoolEquation&amp;) (boolequation.cpp:28)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:28</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">1,280 bytes / 1 block(s)</span>
+        <span class="summary-text">1,280 bytes in 1 blocks are definitely lost in loss record 44 of 85</span>
+        <span class="rc">↳ BoolEquation::BoolEquation(BoolEquation&amp;) (boolequation.cpp:28)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:28</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">1,280 bytes / 1 block(s)</span>
+        <span class="summary-text">1,280 bytes in 1 blocks are definitely lost in loss record 45 of 85</span>
+        <span class="rc">↳ BoolEquation::BoolEquation(BoolEquation&amp;) (boolequation.cpp:28)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:28</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">2,415 bytes / 15 block(s)</span>
+        <span class="summary-text">2,415 bytes in 15 blocks are definitely lost in loss record 46 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:90</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">11,592 bytes / 72 block(s)</span>
+        <span class="summary-text">11,592 bytes in 72 blocks are definitely lost in loss record 47 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:95</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">11,592 bytes / 72 block(s)</span>
+        <span class="summary-text">11,592 bytes in 72 blocks are definitely lost in loss record 48 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:98</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">11,592 bytes / 72 block(s)</span>
+        <span class="summary-text">11,592 bytes in 72 blocks are definitely lost in loss record 49 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:100</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">11,592 bytes / 72 block(s)</span>
+        <span class="summary-text">11,592 bytes in 72 blocks are definitely lost in loss record 50 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:104</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">12,719 bytes / 79 block(s)</span>
+        <span class="summary-text">12,719 bytes in 79 blocks are definitely lost in loss record 51 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:95</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">12,719 bytes / 79 block(s)</span>
+        <span class="summary-text">12,719 bytes in 79 blocks are definitely lost in loss record 52 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:98</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">12,719 bytes / 79 block(s)</span>
+        <span class="summary-text">12,719 bytes in 79 blocks are definitely lost in loss record 53 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:100</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">12,719 bytes / 79 block(s)</span>
+        <span class="summary-text">12,719 bytes in 79 blocks are definitely lost in loss record 54 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:104</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">14,329 bytes / 89 block(s)</span>
+        <span class="summary-text">14,329 bytes in 89 blocks are definitely lost in loss record 55 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:95</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">14,329 bytes / 89 block(s)</span>
+        <span class="summary-text">14,329 bytes in 89 blocks are definitely lost in loss record 56 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:98</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">14,329 bytes / 89 block(s)</span>
+        <span class="summary-text">14,329 bytes in 89 blocks are definitely lost in loss record 57 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:100</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">14,329 bytes / 89 block(s)</span>
+        <span class="summary-text">14,329 bytes in 89 blocks are definitely lost in loss record 58 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:104</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">16,261 bytes / 101 block(s)</span>
+        <span class="summary-text">16,261 bytes in 101 blocks are definitely lost in loss record 59 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:95</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">16,261 bytes / 101 block(s)</span>
+        <span class="summary-text">16,261 bytes in 101 blocks are definitely lost in loss record 60 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:98</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">16,261 bytes / 101 block(s)</span>
+        <span class="summary-text">16,261 bytes in 101 blocks are definitely lost in loss record 61 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:100</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">16,261 bytes / 101 block(s)</span>
+        <span class="summary-text">16,261 bytes in 101 blocks are definitely lost in loss record 62 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:104</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">17,920 bytes / 14 block(s)</span>
+        <span class="summary-text">17,920 bytes in 14 blocks are definitely lost in loss record 63 of 85</span>
+        <span class="rc">↳ BoolEquation::BoolEquation(BoolEquation&amp;) (boolequation.cpp:28)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BoolEquation::BoolEquation(BoolEquation&amp;)</span> — <span class="loc">boolequation.cpp:28</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:56</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">18,998 bytes / 118 block(s)</span>
+        <span class="summary-text">18,998 bytes in 118 blocks are definitely lost in loss record 64 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:95</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">18,998 bytes / 118 block(s)</span>
+        <span class="summary-text">18,998 bytes in 118 blocks are definitely lost in loss record 65 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:98</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">18,998 bytes / 118 block(s)</span>
+        <span class="summary-text">18,998 bytes in 118 blocks are definitely lost in loss record 66 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:100</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">18,998 bytes / 118 block(s)</span>
+        <span class="summary-text">18,998 bytes in 118 blocks are definitely lost in loss record 67 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:104</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">20,608 bytes / 128 block(s)</span>
+        <span class="summary-text">20,608 bytes in 128 blocks are definitely lost in loss record 68 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:95</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">20,608 bytes / 128 block(s)</span>
+        <span class="summary-text">20,608 bytes in 128 blocks are definitely lost in loss record 69 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:98</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">20,608 bytes / 128 block(s)</span>
+        <span class="summary-text">20,608 bytes in 128 blocks are definitely lost in loss record 70 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:100</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">20,608 bytes / 128 block(s)</span>
+        <span class="summary-text">20,608 bytes in 128 blocks are definitely lost in loss record 71 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:104</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">22,540 bytes / 140 block(s)</span>
+        <span class="summary-text">22,540 bytes in 140 blocks are definitely lost in loss record 72 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:95</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">22,540 bytes / 140 block(s)</span>
+        <span class="summary-text">22,540 bytes in 140 blocks are definitely lost in loss record 73 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:98</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">22,540 bytes / 140 block(s)</span>
+        <span class="summary-text">22,540 bytes in 140 blocks are definitely lost in loss record 74 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:100</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">22,540 bytes / 140 block(s)</span>
+        <span class="summary-text">22,540 bytes in 140 blocks are definitely lost in loss record 75 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:104</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">25,599 bytes / 159 block(s)</span>
+        <span class="summary-text">25,599 bytes in 159 blocks are definitely lost in loss record 76 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:95</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">25,599 bytes / 159 block(s)</span>
+        <span class="summary-text">25,599 bytes in 159 blocks are definitely lost in loss record 77 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:98</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">25,599 bytes / 159 block(s)</span>
+        <span class="summary-text">25,599 bytes in 159 blocks are definitely lost in loss record 78 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:100</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">25,599 bytes / 159 block(s)</span>
+        <span class="summary-text">25,599 bytes in 159 blocks are definitely lost in loss record 79 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:104</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:147</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">25,760 bytes / 160 block(s)</span>
+        <span class="summary-text">25,760 bytes in 160 blocks are definitely lost in loss record 80 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolInterval::BoolInterval(char const*)</span> — <span class="loc">boolinterval.cpp:31</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:138</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">25,760 bytes / 160 block(s)</span>
+        <span class="summary-text">25,760 bytes in 160 blocks are definitely lost in loss record 81 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolInterval::BoolInterval(char const*)</span> — <span class="loc">boolinterval.cpp:32</span></li><li class="frame"><span class="fn">main</span> — <span class="loc">main.cpp:138</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">56,350 bytes / 350 block(s)</span>
+        <span class="summary-text">56,350 bytes in 350 blocks are definitely lost in loss record 82 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:95</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">56,350 bytes / 350 block(s)</span>
+        <span class="summary-text">56,350 bytes in 350 blocks are definitely lost in loss record 83 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:98</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">56,350 bytes / 350 block(s)</span>
+        <span class="summary-text">56,350 bytes in 350 blocks are definitely lost in loss record 84 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:100</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li></ul>
+    </details>
+
+    <details class="error-item">
+      <summary>
+        <span class="badge kind" style="background:#c0392b">Definitely Lost</span>
+        <span class="badge bytes">56,350 bytes / 350 block(s)</span>
+        <span class="summary-text">56,350 bytes in 350 blocks are definitely lost in loss record 85 of 85</span>
+        <span class="rc">↳ BBV::operator char*() (BBV.cpp:309)</span>
+      </summary>
+      <ul class="stack"><li class="frame"><span class="fn">operator new[](unsigned long)</span> — <span class="loc obj">vgpreload_memcheck-amd64-linux.so</span></li><li class="frame"><span class="fn">BBV::operator char*()</span> — <span class="loc">BBV.cpp:309</span></li><li class="frame"><span class="fn">BoolEquation::CheckRules()</span> — <span class="loc">boolequation.cpp:104</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:47</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li><li class="frame"><span class="fn">solveDPLL(BoolEquation*, BranchingStrategy const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*)</span> — <span class="loc">main.cpp:58</span></li></ul>
+    </details>
+</div>
+
+</body>
+</html>
